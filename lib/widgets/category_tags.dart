@@ -10,6 +10,7 @@ class CategoryTags extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(15.0),
       child: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: 4.0,
