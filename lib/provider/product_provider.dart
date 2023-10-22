@@ -6,11 +6,13 @@ import '../services/gateway.dart' as gateway;
 class ProductProvider extends ChangeNotifier {
   String? _errorMessage;
   final List<ProductModel> _products = [];
+  final List<String> _categories = [];
 
   bool isLoading = false;
 
   String? get getErrorMessage => _errorMessage;
   List<ProductModel> get getProducts => _products;
+  List<String> get getCategories => _categories;
 
   Future fetchProducts() async {
     isLoading = true;
@@ -26,14 +28,21 @@ class ProductProvider extends ChangeNotifier {
 
     // Clear the existing products
     _products.clear();
+    _categories.clear();
 
     for (Map<String, dynamic> element in productList) {
       ProductModel tempData = ProductModel.fromJson(element);
       _products.add(tempData);
+
+      String category = tempData.category!.name!;
+      if (!_categories.contains(category)) {
+        _categories.add(category);
+      }
     }
 
     notifyListeners();
   }
+}
 
 //
   // Future fetchProducts() async {
@@ -53,4 +62,3 @@ class ProductProvider extends ChangeNotifier {
   //   }
   //   notifyListeners();
   // }
-}
