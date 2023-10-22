@@ -7,9 +7,14 @@ import 'package:provider/provider.dart';
 import '../widgets/category_tags.dart';
 import '../widgets/new_arrival_custom_card.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<ProductProvider>(
@@ -23,6 +28,7 @@ class MyHomePage extends StatelessWidget {
         }
         if(provider.getProducts.isEmpty){
           provider.fetchProducts();
+          print(provider.getCategories.length);
           return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
@@ -128,7 +134,17 @@ class MyHomePage extends StatelessWidget {
                                     left: index == 0 ? 8 : 0.0,
                                     right: index == provider.getCategories.length-1 ? 8 : 0.0,
                                   ),
-                                  child: CategoryTags(label: provider.getCategories[index]),
+                                  child: CategoryTags(
+                                      label: provider.getCategories[index],
+                                    selectedCategory: provider.selectedCategory!,
+                                    onTap: (){
+                                        setState(() {
+                                          provider.selectedCategory = provider.getCategories[index];
+                                          provider.filterItems();
+                                        });
+                                        print(provider.selectedCategory);
+                                    },
+                                  ),
                                 );
                               }
                           ),
@@ -156,33 +172,30 @@ class MyHomePage extends StatelessWidget {
                         ),
                         SizedBox(
                           height: 220,
-                          child: ListView(
+                          child: ListView.builder(
                             scrollDirection: Axis.horizontal,
-                            children: [
-                              for(int i=0; i<8; i++)
-                                Padding(
+                              itemCount: provider.getFilteredItems.length,
+                              itemBuilder: (context, i) {
+                                return Padding(
                                   padding: EdgeInsets.only(
                                       left: i == 0 ? 4.0 : 0.0,
-                                      right: i == 7 ? 4.0 : 0.0
+                                      right: i == provider.getFilteredItems.length-1 ? 4.0 : 0.0
                                   ),
                                   child: NewArrivalCustomCard(
-                                    title: provider.getProducts[i].title!,
-                                    description: provider.getProducts[i].description!,
-                                    image: provider.getProducts[i].images![0],
-                                    price: provider.getProducts[i].price.toString(),
+                                    item: provider.getFilteredItems[i],
                                     onTap: () {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => ItemDetailScreen(
-                                              item: provider.getProducts[i],
+                                              item: provider.getFilteredItems[i],
                                             )
                                         ),
                                       );
                                     },
                                   ),
-                                )
-                            ],
+                                );
+                              }
                           ),
                         ),
                       ]

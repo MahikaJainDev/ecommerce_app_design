@@ -1,12 +1,10 @@
+import 'package:ecommerce_app_design/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class NewArrivalCustomCard extends StatelessWidget {
-  const NewArrivalCustomCard({super.key, required this.onTap, required this.image, required this.title, required this.description, required this.price});
+  const NewArrivalCustomCard({super.key, required this.onTap, required this.item,});
   final VoidCallback onTap;
-  final String image;
-  final String title;
-  final String description;
-  final String price;
+  final ProductModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +27,24 @@ class NewArrivalCustomCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: Center(
-                    child: Image.network(image,
+                    child: Image.network(item.images![0],
                       //height: 80.0,
                       width: 80.0,
                     ),
                   ),
                 ),
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                //   child: Text(item.category!.name!,
+                //     style: Theme.of(context).textTheme.titleSmall,
+                //     textAlign: TextAlign.left,
+                //     maxLines: 1,
+                //     overflow: TextOverflow.ellipsis,
+                //   ),
+                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Text(title,
+                  child: Text(item.title!,
                     style: Theme.of(context).textTheme.titleSmall,
                     textAlign: TextAlign.left,
                     maxLines: 1,
@@ -46,7 +53,7 @@ class NewArrivalCustomCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                  child: Text(description,
+                  child: Text(item.description!,
                     style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -58,14 +65,14 @@ class NewArrivalCustomCard extends StatelessWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                      child: Text('\$${price}',
+                      child: Text('\$${item.price!}',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                     ),
                     const Spacer(),
                     IconButton(
                         onPressed: (){},
-                        icon: Icon(
+                        icon: const Icon(
                             Icons.add_box
                         )
                     )
