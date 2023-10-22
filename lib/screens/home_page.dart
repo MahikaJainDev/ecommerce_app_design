@@ -89,21 +89,21 @@ class MyHomePage extends StatelessWidget {
                                 hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                     color: const Color(0xff959598)
                                 ),
-                                fillColor: const Color(0xffe5e5ea),
+                                fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
                                 filled: true,
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
-                                    borderSide: const BorderSide(color: Color(0xffe5e5ea))),
+                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),)),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(20.0),
-                                  borderSide: const BorderSide(color: Color(0xffe5e5ea)),
+                                  borderSide: BorderSide(color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),),
                                 ),
                                 disabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
-                                    borderSide: const BorderSide(color: Color(0xffe5e5ea))),
+                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),)),
                                 focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(20.0),
-                                    borderSide: const BorderSide(color: Color(0xffe5e5ea))),
+                                    borderSide: BorderSide(color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),)),
                                 prefixIcon: const Icon(
                                   Icons.search_rounded,
                                   color: Color(0xff959598),
@@ -174,7 +174,9 @@ class MyHomePage extends StatelessWidget {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => ItemDetailScreen()
+                                            builder: (context) => ItemDetailScreen(
+                                              item: provider.getProducts[i],
+                                            )
                                         ),
                                       );
                                     },

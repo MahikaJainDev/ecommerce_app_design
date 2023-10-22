@@ -1,7 +1,9 @@
+import 'package:ecommerce_app_design/models/product_model.dart';
 import 'package:flutter/material.dart';
 
 class ItemDetailScreen extends StatelessWidget {
-  const ItemDetailScreen({super.key});
+  const ItemDetailScreen({super.key, required this.item});
+  final ProductModel item;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class ItemDetailScreen extends StatelessWidget {
                       vertical: 32.0
                     ),
                     child: Center(
-                      child: Image.asset('assets/images/iphone.jpg',
+                      child: Image.network(item.images![0],
                         width: 250,
                       ),
                     ),
@@ -40,41 +42,46 @@ class ItemDetailScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                            'Iphone',
+                            item.title!,
                         style: Theme.of(context).textTheme.titleLarge,
                         ),
                         const Spacer(),
                         Text(
-                          '\$399',
+                          '\$${item.price}',
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ],
                     ),
                   ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Text(
-                      'ndencnec ckrnrc krencnrnr dre ckrkcnrkn  ckrndnrednd eknnrnc  cknrknckrn crnckrncn rjnckrncnr crkcnrnfcrj crjfnendie drncirndi3n e3',
+                      item.description!,
                       textAlign: TextAlign.justify,
                       style: Theme.of(context).textTheme.bodyMedium,
                       maxLines: null,
                     ),
                   ),
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: ElevatedButton(
-                          onPressed: (){},
-                          child: Text('Buy now')
-                      ),
-                    ),
-                  )
                 ],
               ),
           ),
         ],
       ),
+      floatingActionButton: SizedBox(
+        width: 200,
+        child: FloatingActionButton(
+            onPressed: (){},
+          backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Buy now'),
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

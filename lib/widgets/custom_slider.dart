@@ -26,7 +26,7 @@ class _CustomSliderState extends State<CustomSlider> {
             children: [
               for(int i = 0; i < 4; i++)
                 Container(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
                   child: Row(
                     children: [
                       Padding(
@@ -55,6 +55,7 @@ class _CustomSliderState extends State<CustomSlider> {
                                 maxLines: 2,
                                 softWrap: true,
                                 overflow: TextOverflow.fade,
+                                textAlign: TextAlign.justify,
                               ),
                             ),
                             const SizedBox(
